@@ -14,8 +14,8 @@ class newTask : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentNewTaskBinding
     private lateinit var  taskViewModel: TaskViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val activity = requireActivity()
         taskViewModel = ViewModelProvider(activity).get(taskViewModel::class.java)
         binding.saveButton.setOnClickListener{
@@ -23,7 +23,6 @@ class newTask : BottomSheetDialogFragment() {
             saveAction()
 
         }
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -33,6 +32,10 @@ class newTask : BottomSheetDialogFragment() {
 
     private fun  saveAction(){
         taskViewModel.name.value = binding.name.text.toString()
+        taskViewModel.desc.value = binding.desc.text.toString()
+        binding.name.setText("")
+        binding.desc.setText("")
+        dismiss()
     }
 
 
